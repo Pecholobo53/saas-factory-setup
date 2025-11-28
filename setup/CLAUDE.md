@@ -54,6 +54,37 @@ proyecto/
 >
 > *La IA puede trabajar de forma más efectiva cuando la información está organizada siguiendo principios claros y predecibles.*
 
+## 🔌 MCPs Clave (Backend as a Service)
+
+### Chrome DevTools MCP - "Ojos" para el Agente
+Te da visibilidad del navegador para desarrollo visual.
+
+| Comando | Uso |
+|---------|-----|
+| `take_screenshot` | Captura visual de la página |
+| `take_snapshot` | Estado del DOM (árbol de accesibilidad) |
+| `click` / `fill` | Interactuar con elementos |
+| `list_console_messages` | Ver errores de consola |
+| `list_network_requests` | Debug de llamadas API/fetch |
+| `resize_page` | Probar responsive (mobile/tablet/desktop) |
+
+**Cuándo usar**: Bucle agéntico visual → código → screenshot → comparar → iterar hasta pixel-perfect.
+
+### Supabase MCP - Acceso Directo a BDD
+Interactúa con PostgreSQL sin CLI ni migraciones manuales.
+
+| Comando | Uso |
+|---------|-----|
+| `execute_sql` | SELECT, INSERT, UPDATE, DELETE |
+| `apply_migration` | CREATE TABLE, ALTER, índices, RLS |
+| `list_tables` | Ver estructura de BD |
+| `get_logs` | Debug de auth/postgres/edge-functions |
+| `get_advisors` | Detectar tablas sin RLS (seguridad) |
+
+**Cuándo usar**: Siempre que necesites consultar o modificar la base de datos. NO uses CLI ni apliques migraciones manualmente.
+
+> Ver `.claude/prompts/supabase-mcp-baas.md` para guía completa.
+
 ## 🛠️ Comandos Importantes
 
 ### Development
@@ -90,9 +121,9 @@ Ejemplos:
 - **Evitar tipos dinámicos sin necesidad** - preferir tipos explícitos
 - **Documentar tipos complejos** con comentarios claros
 
-### Code Patterns
+### Patrones de Código
 ```python
-# ✅ GOOD: Clear function structure
+# ✅ BIEN: Estructura de función clara
 def process_data(items: list[dict], options: dict) -> dict:
     """
     Process data items with given options.
@@ -115,104 +146,104 @@ def process_data(items: list[dict], options: dict) -> dict:
     return {"status": "success", "result": result}
 ```
 
-## 🧪 Testing Strategy
+## 🧪 Estrategia de Testing
 
-### Test-Driven Development (TDD)
-1. **Red**: Escribe el test que falla
-2. **Green**: Implementa código mínimo para pasar
-3. **Refactor**: Mejora el código manteniendo tests verdes
+### Desarrollo Guiado por Tests (TDD)
+1. **Rojo**: Escribe el test que falla
+2. **Verde**: Implementa código mínimo para pasar
+3. **Refactorizar**: Mejora el código manteniendo tests verdes
 
-### Test Structure (AAA Pattern)
+### Estructura de Tests (Patrón AAA)
 ```python
-# ✅ GOOD: Clear test structure
+# ✅ BIEN: Estructura de test clara
 def test_process_data_with_valid_input():
-    # Arrange
+    # Preparar (Arrange)
     items = [{"value": 10}, {"value": 20}]
     options = {"multiplier": 2}
 
-    # Act
+    # Actuar (Act)
     result = process_data(items, options)
 
-    # Assert
+    # Afirmar (Assert)
     assert result["status"] == "success"
     assert len(result["result"]) == 2
 ```
 
-### Coverage Goals
-- **Unit Tests**: 80%+ coverage
-- **Integration Tests**: Critical paths
-- **E2E Tests**: Main user journeys
+### Objetivos de Cobertura
+- **Tests Unitarios**: 80%+ de cobertura
+- **Tests de Integración**: Rutas críticas
+- **Tests E2E**: Flujos principales de usuario
 
-## 🔒 Security Best Practices
+## 🔒 Mejores Prácticas de Seguridad
 
-### Input Validation
-- Validate all user inputs
-- Sanitize data before processing
-- Use schema validation libraries
+### Validación de Entrada
+- Validar todas las entradas de usuario
+- Sanitizar datos antes de procesar
+- Usar librerías de validación de esquema
 
-### Secrets Management
-- Never hardcode secrets
-- Use environment variables
-- Keep .env files out of version control
+### Gestión de Secretos
+- Nunca hardcodear secretos
+- Usar variables de entorno
+- Mantener archivos .env fuera del control de versiones
 
-### Data Protection
-- Never log sensitive data
-- Encrypt data at rest
-- Use secure connections (HTTPS, TLS)
+### Protección de Datos
+- Nunca registrar datos sensibles
+- Cifrar datos en reposo
+- Usar conexiones seguras (HTTPS, TLS)
 
-## ⚡ Performance Guidelines
+## ⚡ Guías de Rendimiento
 
-### Code Optimization
-- Profile before optimizing
-- Cache repeated computations
-- Use appropriate data structures
+### Optimización de Código
+- Perfilar antes de optimizar
+- Cachear cálculos repetidos
+- Usar estructuras de datos apropiadas
 
-### Resource Management
-- Close files and connections properly
-- Implement timeouts for external calls
-- Monitor memory usage in long-running processes
+### Gestión de Recursos
+- Cerrar archivos y conexiones correctamente
+- Implementar timeouts para llamadas externas
+- Monitorear uso de memoria en procesos de larga duración
 
-## 🔄 Git Workflow & Repository Rules
+## 🔄 Flujo de Git y Reglas de Repositorio
 
-### Branch Strategy
-- `main` - Production ready code
-- `develop` - Integration branch
-- `feature/TICKET-123-description` - Feature branches
-- `hotfix/TICKET-456-description` - Hotfixes
+### Estrategia de Ramas
+- `main` - Código listo para producción
+- `develop` - Rama de integración
+- `feature/TICKET-123-descripcion` - Ramas de features
+- `hotfix/TICKET-456-descripcion` - Hotfixes
 
-### Commit Convention (Conventional Commits)
+### Convención de Commits (Conventional Commits)
 ```
-type(scope): description
+tipo(alcance): descripción
 
-feat(cli): add new command for data export
-fix(parser): handle empty input correctly
-docs(readme): update installation steps
-test(core): add unit tests for processor
+feat(cli): agregar nuevo comando para exportar datos
+fix(parser): manejar entrada vacía correctamente
+docs(readme): actualizar pasos de instalación
+test(core): agregar tests unitarios para procesador
 ```
 
-### Pull Request Rules
-- **No direct commits** a `main` o `develop`
-- **Require PR review** antes de merge
-- **All tests must pass** antes de merge
+### Reglas de Pull Request
+- **Sin commits directos** a `main` o `develop`
+- **Requerir revisión de PR** antes de merge
+- **Todos los tests deben pasar** antes de merge
 - **Squash and merge** para mantener historia limpia
 
 ## ❌ No Hacer (Critical)
 
-### Code Quality
-- ❌ No ignorar type errors
+### Calidad de Código
+- ❌ No ignorar errores de tipos
 - ❌ No hacer commits sin tests
 - ❌ No omitir manejo de errores
 - ❌ No hardcodear configuraciones
 
-### Security
+### Seguridad
 - ❌ No exponer secrets en código
 - ❌ No loggear información sensible
 - ❌ No saltarse validación de entrada
 - ❌ No usar conexiones inseguras en producción
 
-### Architecture
+### Arquitectura
 - ❌ No crear dependencias circulares
-- ❌ No mezclar concerns en un módulo
+- ❌ No mezclar responsabilidades en un módulo
 - ❌ No duplicar lógica de negocio
 - ❌ No ignorar warnings del linter
 
@@ -220,11 +251,11 @@ test(core): add unit tests for processor
 
 ### Manejo de Errores Predictivos
 ```python
-# ✅ GOOD: Siempre incluir fallbacks
+# ✅ BIEN: Siempre incluir fallbacks
 try:
     external_result = call_external_api()
 except Exception as e:
-    logger.error(f"External API failed: {e}")
+    logger.error(f"API externa falló: {e}")
     external_result = get_mock_fallback()  # Siempre tener fallback
 ```
 

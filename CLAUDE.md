@@ -18,6 +18,11 @@ saas-factory-setup/
 │   ├── .claude/               # Config específica de frontend
 │   └── example.mcp.json       # MCPs + Playwright (bucle agéntico)
 │
+├── auth-nextjs-template/       # Template con Auth pre-configurado (Next.js + Supabase Auth)
+│   ├── CLAUDE.md              # System prompt con auth patterns
+│   ├── .claude/               # Config + prompts de autenticación
+│   └── example.mcp.json       # MCPs para auth flows
+│
 ├── python-claude-setup/        # Template Full-Stack (Next.js + FastAPI)
 │   ├── CLAUDE.md              # System prompt híbrido (frontend + backend)
 │   ├── .claude/               # Config para full-stack
@@ -34,7 +39,9 @@ saas-factory-setup/
 1. **Usuario ejecuta alias** en cualquier directorio:
    ```bash
    cd ~/mi-nuevo-proyecto
-   nextjs-claude-setup  # o python-claude-setup
+   nextjs-claude-setup      # Frontend básico
+   auth-nextjs-template     # Frontend con Auth pre-configurado
+   python-claude-setup      # Full-stack
    ```
 
 2. **Alias copia archivos** del factory al proyecto actual:
@@ -104,7 +111,23 @@ src/features/[feature]/{components,hooks,services,types,store}
 
 **CLAUDE.md:** System prompt optimizado para frontend development
 
-### 3. `python-claude-setup/` - Full-Stack Template
+### 3. `auth-nextjs-template/` - Frontend + Auth Template
+
+**Para:** Apps con autenticación pre-configurada (el más usado)
+
+**Tech Stack:** Igual que nextjs-claude-setup +
+- Supabase Auth configurado
+- Middleware de protección de rutas
+- Componentes de login/registro
+
+**Incluye extra:**
+- Prompts de autenticación (`autenticacion-supabase.md`)
+- Patrones de auth flows documentados
+- RLS policies de ejemplo
+
+**CLAUDE.md:** System prompt con auth patterns integrados
+
+### 4. `python-claude-setup/` - Full-Stack Template
 
 **Para:** Apps full-stack completas con frontend + backend separados
 
@@ -293,18 +316,19 @@ Metodología única de SaaS Factory para desarrollo frontend:
 
 ## 📊 Estado del Proyecto
 
-**Versión:** v1.0
-**Última actualización:** 2025-01-07
+**Versión:** v1.3.0
+**Última actualización:** 2025-11-28
 
 **Componentes completos:**
 - ✅ Setup base (`setup/`)
 - ✅ Next.js template (`nextjs-claude-setup/`)
+- ✅ Auth template (`auth-nextjs-template/`) - El más usado
 - ✅ Python full-stack template (`python-claude-setup/`)
 - ✅ Sistema de skills con skill-creator
 - ✅ MCPs configurados (7 MCPs disponibles)
 - ✅ Bucle agéntico documentado
-- ✅ CLAUDE_TEMPLATE.md educativo
-- ✅ README.md completo
+- ✅ 7 agentes especializados por setup
+- ✅ Documentación de Supabase MCP integrada
 
 **Pendiente:**
 - 🔄 Tests automáticos del factory

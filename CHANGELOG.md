@@ -2,6 +2,87 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2025-11-28
+
+### Added
+
+#### Documentación de MCPs en CLAUDE.md
+- Sección **"🔌 MCPs Clave"** añadida a los 4 CLAUDE.md:
+  - Chrome DevTools MCP: tabla de comandos + cuándo usar (bucle agéntico visual)
+  - Supabase MCP: tabla de comandos + cuándo usar (acceso directo a BDD)
+  - Referencia a `supabase-mcp-baas.md` para guía completa
+
+#### Template auth-nextjs-template Documentado
+- Añadido `auth-nextjs-template` como alias oficial
+- Actualizada estructura del repositorio en CLAUDE.md raíz
+- Documentado como "el más usado" para apps con autenticación pre-configurada
+
+### Changed
+- Versión del proyecto actualizada a v1.3.0
+- Sección "Qué Incluye Cada Setup" ahora muestra 4 templates
+
+---
+
+## [1.2.0] - 2025-11-28
+
+### Added
+
+#### Nuevos Agentes Especializados (4)
+- **frontend-specialist**: Experto en UI/UX, React, Tailwind CSS. Crea interfaces accesibles y performantes.
+- **backend-specialist**: Experto en Server Actions, APIs, validaciones con Zod. Arquitectura Clean.
+- **supabase-admin**: Experto en operaciones Supabase via MCP. Maneja BDD, RLS, Auth, Storage.
+- **vercel-deployer**: Experto en deployments con Vercel CLI. Usa modelo `haiku` para rapidez y bajo costo.
+
+#### Nuevos Prompts/Metodologías (5)
+- **supabase-mcp-baas.md**: El 20% que produce el 80% del MCP de Supabase. Incluye los 5 comandos esenciales, patrones de uso, y flujo de trabajo recomendado.
+- **nextjs-16-guide.md**: Guía completa de Next.js 16 (Cache Components, Turbopack, proxy.ts, React Compiler).
+- **agent-builder-pydantic.md**: Guía para construir agentes IA con Pydantic AI + OpenRouter en Python.
+- **agent-builder-vercel.md**: Guía para construir agentes IA con Vercel AI SDK + OpenRouter en Next.js.
+- **INVESTIGACION-CLAUDE-CODE-V2.md**: Documento de investigación exhaustiva sobre componentes de `.claude/` según docs oficiales de Anthropic.
+
+#### Estructura Completa en setup/ Base
+- El setup base ahora incluye todos los agentes, commands, prompts y skills igual que los templates específicos.
+
+### Changed
+
+#### Reorganización de Skills → Prompts
+- **Filosofía corregida**: Skills son para expertise que Claude activa automáticamente. Prompts son documentación de referencia.
+- Movido `nextjs-16-complete-guide` de skills/ a prompts/
+- Movido `agent-builder-pydantic-ai` de skills/ a prompts/
+- Movido `agent-builder-vercel-sdk` de skills/ a prompts/
+
+### Removed
+
+#### Skills Eliminados (6)
+- `nano-banana-image-combine/` - No relevante para la fábrica
+- `replicate-integration/` - No relevante para la fábrica
+- `supabase-auth-memory/` - Redundante con supabase-mcp-baas.md
+- `nextjs-16-complete-guide/` - Movido a prompts/
+- `agent-builder-pydantic-ai/` - Movido a prompts/
+- `agent-builder-vercel-sdk/` - Movido a prompts/
+
+### Technical Notes
+
+#### Estructura Final de .claude/
+```
+.claude/
+├── agents/     (7) - Agentes especializados con modelos y tools específicos
+├── commands/   (7) - Slash commands invocados manualmente
+├── prompts/    (6-7) - Metodologías y documentación de referencia
+├── skills/     (1) - Solo skill-creator (verdadero skill con activación automática)
+└── PRPs/       - Templates para Product Requirement Patterns
+```
+
+#### Diferenciación Correcta de Componentes
+| Componente | Activación | Uso |
+|------------|------------|-----|
+| Commands | Manual (`/cmd`) | Prompts reutilizables |
+| Agents | Delegado | Subagentes con contexto aislado |
+| Skills | **Automática** | Expertise que Claude detecta |
+| Prompts | Referencia | Metodologías documentadas |
+
+---
+
 ## [1.1.0] - 2025-11-27
 
 ### Added

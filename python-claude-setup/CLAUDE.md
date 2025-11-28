@@ -138,6 +138,37 @@ proyecto/
 >
 > *La IA puede trabajar de forma más efectiva cuando la información está organizada siguiendo principios claros y predecibles.*
 
+## 🔌 MCPs Clave (Backend as a Service)
+
+### Chrome DevTools MCP - "Ojos" para el Agente
+Te da visibilidad del navegador para desarrollo visual.
+
+| Comando | Uso |
+|---------|-----|
+| `take_screenshot` | Captura visual de la página |
+| `take_snapshot` | Estado del DOM (árbol de accesibilidad) |
+| `click` / `fill` | Interactuar con elementos |
+| `list_console_messages` | Ver errores de consola |
+| `list_network_requests` | Debug de llamadas API/fetch |
+| `resize_page` | Probar responsive (mobile/tablet/desktop) |
+
+**Cuándo usar**: Bucle agéntico visual → código → screenshot → comparar → iterar hasta pixel-perfect.
+
+### Supabase MCP - Acceso Directo a BDD
+Interactúa con PostgreSQL sin CLI ni migraciones manuales.
+
+| Comando | Uso |
+|---------|-----|
+| `execute_sql` | SELECT, INSERT, UPDATE, DELETE |
+| `apply_migration` | CREATE TABLE, ALTER, índices, RLS |
+| `list_tables` | Ver estructura de BD |
+| `get_logs` | Debug de auth/postgres/edge-functions |
+| `get_advisors` | Detectar tablas sin RLS (seguridad) |
+
+**Cuándo usar**: Siempre que necesites consultar o modificar la base de datos. NO uses CLI ni apliques migraciones manualmente.
+
+> Ver `.claude/prompts/supabase-mcp-baas.md` para guía completa.
+
 ## 🛠️ Comandos Importantes
 
 ### Frontend Development
@@ -176,9 +207,9 @@ proyecto/
 - **Types** para unions y primitives
 - **Evitar `any`** - usar `unknown` si es necesario
 
-### Component Patterns
+### Patrones de Componentes
 ```typescript
-// ✅ GOOD: Proper component structure
+// ✅ BIEN: Estructura de componente correcta
 interface Props {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary';
@@ -197,134 +228,134 @@ export function Button({ children, variant = 'primary', onClick }: Props) {
 }
 ```
 
-## 🧪 Testing Strategy
+## 🧪 Estrategia de Testing
 
-### Test-Driven Development (TDD)
-1. **Red**: Escribe el test que falla
-2. **Green**: Implementa código mínimo para pasar
-3. **Refactor**: Mejora el código manteniendo tests verdes
+### Desarrollo Guiado por Tests (TDD)
+1. **Rojo**: Escribe el test que falla
+2. **Verde**: Implementa código mínimo para pasar
+3. **Refactorizar**: Mejora el código manteniendo tests verdes
 
-### Test Structure (AAA Pattern)
+### Estructura de Tests (Patrón AAA)
 ```typescript
-// ✅ GOOD: Clear test structure
+// ✅ BIEN: Estructura de test clara
 test('should calculate total with tax', () => {
-  // Arrange
+  // Preparar (Arrange)
   const items = [{ price: 100 }, { price: 200 }];
   const taxRate = 0.1;
-  
-  // Act
+
+  // Actuar (Act)
   const result = calculateTotal(items, taxRate);
-  
-  // Assert  
+
+  // Afirmar (Assert)
   expect(result).toBe(330);
 });
 ```
 
-### Coverage Goals
-- **Unit Tests**: 80%+ coverage
-- **Integration Tests**: Critical paths
-- **E2E Tests**: Main user journeys
+### Objetivos de Cobertura
+- **Tests Unitarios**: 80%+ de cobertura
+- **Tests de Integración**: Rutas críticas
+- **Tests E2E**: Flujos principales de usuario
 
-## 🔒 Security Best Practices
+## 🔒 Mejores Prácticas de Seguridad
 
-### Input Validation
-- Validate all user inputs
-- Sanitize data before processing
-- Use schema validation (Zod, Yup, etc.)
+### Validación de Entrada
+- Validar todas las entradas de usuario
+- Sanitizar datos antes de procesar
+- Usar validación de esquema (Zod, Yup, etc.)
 
-### Authentication & Authorization
-- JWT tokens con expiración
-- Role-based access control
-- Secure session management
+### Autenticación y Autorización
+- Tokens JWT con expiración
+- Control de acceso basado en roles
+- Gestión segura de sesiones
 
-### Data Protection
-- Never log sensitive data
-- Encrypt data at rest
-- Use HTTPS everywhere
+### Protección de Datos
+- Nunca registrar datos sensibles
+- Cifrar datos en reposo
+- Usar HTTPS en todo lugar
 
-## ⚡ Performance Guidelines
+## ⚡ Guías de Rendimiento
 
-### Code Splitting
-- Route-based splitting
-- Component lazy loading
-- Dynamic imports
+### División de Código
+- División basada en rutas
+- Carga diferida de componentes
+- Importaciones dinámicas
 
-### State Management
-- Local state first
-- Global state only when needed
-- Memoization for expensive computations
+### Gestión de Estado
+- Estado local primero
+- Estado global solo cuando sea necesario
+- Memoización para cálculos costosos
 
-### Database Optimization
-- Index frequently queried columns
-- Use pagination for large datasets
-- Cache repeated queries
+### Optimización de Base de Datos
+- Indexar columnas consultadas frecuentemente
+- Usar paginación para conjuntos grandes de datos
+- Cachear consultas repetidas
 
-## 🔄 Git Workflow & Repository Rules
+## 🔄 Flujo de Git y Reglas de Repositorio
 
-### Branch Strategy
-- `main` - Production ready code
-- `develop` - Integration branch
-- `feature/TICKET-123-description` - Feature branches
-- `hotfix/TICKET-456-description` - Hotfixes
+### Estrategia de Ramas
+- `main` - Código listo para producción
+- `develop` - Rama de integración
+- `feature/TICKET-123-descripcion` - Ramas de features
+- `hotfix/TICKET-456-descripcion` - Hotfixes
 
-### Commit Convention (Conventional Commits)
+### Convención de Commits (Conventional Commits)
 ```
-type(scope): description
+tipo(alcance): descripción
 
-feat(auth): add OAuth2 integration
-fix(api): handle null user response  
-docs(readme): update installation steps
+feat(auth): agregar integración OAuth2
+fix(api): manejar respuesta de usuario nula
+docs(readme): actualizar pasos de instalación
 ```
 
-### Pull Request Rules
-- **No direct commits** a `main` o `develop`
-- **Require PR review** antes de merge
-- **All tests must pass** antes de merge
+### Reglas de Pull Request
+- **Sin commits directos** a `main` o `develop`
+- **Requerir revisión de PR** antes de merge
+- **Todos los tests deben pasar** antes de merge
 - **Squash and merge** para mantener historia limpia
 
 ## ❌ No Hacer (Critical)
 
-### Code Quality
+### Calidad de Código
 - ❌ No usar `any` en TypeScript
 - ❌ No hacer commits sin tests
 - ❌ No omitir manejo de errores
 - ❌ No hardcodear configuraciones
 
-### Security  
+### Seguridad
 - ❌ No exponer secrets en código
 - ❌ No loggear información sensible
 - ❌ No saltarse validación de entrada
 - ❌ No usar HTTP en producción
 
-### Architecture
+### Arquitectura
 - ❌ No editar archivos en `src/legacy/`
 - ❌ No crear dependencias circulares
-- ❌ No mezclar concerns en un componente
-- ❌ No usar global state innecesariamente
+- ❌ No mezclar responsabilidades en un componente
+- ❌ No usar estado global innecesariamente
 
 ## 🔄 Error-First Development Protocol
 
 ### Manejo de Errores Predictivos
 ```python
-# ✅ GOOD: Siempre incluir fallbacks
+# ✅ BIEN: Siempre incluir fallbacks
 try:
     ai_result = await openai_call()
 except Exception as e:
-    print(f"AI call failed: {e}")
+    print(f"Llamada IA falló: {e}")
     ai_result = get_mock_fallback()  # Siempre tener fallback
 ```
 
-### Debugging Sin Visibilidad Directa
+### Depuración Sin Visibilidad Directa
 - **Usar logs extensivos** con emojis para fácil identificación
-- **Crear endpoints de testing** (`/test-connection`, `/health`)  
+- **Crear endpoints de prueba** (`/test-connection`, `/health`)
 - **Implementar timeouts** en todas las llamadas externas
 - **Hacer requests incrementales** - nunca asumir que algo complejo funcionará
 
-### Best Practices
+### Mejores Prácticas
 - ❌ **NO usar `uvicorn main:app` directamente** → puerto hardcodeado
-- ✅ **SÍ usar `python dev_server.py`** → auto-port detection
+- ✅ **SÍ usar `python dev_server.py`** → detección automática de puerto
 - ❌ **NO usar `next dev` directamente** → puerto hardcodeado
-- ✅ **SÍ usar `npm run dev`** → auto-port detection
+- ✅ **SÍ usar `npm run dev`** → detección automática de puerto
 
 ---
 
