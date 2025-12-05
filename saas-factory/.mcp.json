@@ -2,7 +2,11 @@
   "mcpServers": {
     "next-devtools": {
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
+      "args": ["-y", "@vercel/next-devtools-mcp@latest"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
     },
     "supabase": {
       "command": "npx",
@@ -14,10 +18,6 @@
       "env": {
         "SUPABASE_ACCESS_TOKEN": "YOUR_SUPABASE_ACCESS_TOKEN"
       }
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/playwright-mcp@latest"]
     }
   }
 }

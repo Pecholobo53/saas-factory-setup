@@ -157,10 +157,11 @@ python .claude/skills/skill-creator/scripts/package_skill.py ./my-skill
 1. **Codebase Analyst** - Analiza arquitectura y patrones
 2. **Gestor Documentación** - Mantiene docs actualizados
 
-### MCPs Configurados
+### MCPs Configurados (El Cyborg)
 
-- **Chrome DevTools** - Control de navegador para bucle agéntico visual
-- **Supabase** - Integración directa con DB
+- 🧠 **Next.js DevTools** - Conectado a `/_next/mcp` para debug en tiempo real
+- 👁️ **Playwright** - Validación visual y testing automatizado
+- 🗄️ **Supabase** - Integración directa con DB y auth
 
 ## 🎨 Bucle Agéntico con Playwright
 

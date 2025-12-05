@@ -159,10 +159,11 @@ src/features/
 ```
 
 ### Stack Confirmado
-- **Frontend:** Next.js 15 + TypeScript + Tailwind + shadcn/ui
+- **Frontend:** Next.js 16 + React 19 + TypeScript + Tailwind 3.4 + shadcn/ui
 - **Backend:** Supabase (Auth + Database + Storage)
 - **Validación:** Zod
 - **State:** Zustand (si necesario)
+- **MCPs:** Next.js DevTools + Playwright + Supabase
 
 ### Próximos Pasos
 1. [ ] Setup proyecto base

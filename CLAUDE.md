@@ -13,15 +13,20 @@
 ## 📦 Estructura del Repositorio
 
 ```
-saas-factory-setup/
+saas-factory-v2/
 ├── CLAUDE.md                   # Este archivo (meta-docs del factory)
 ├── README.md                   # Guía de instalación para usuarios
 ├── CHANGELOG.md                # Historial de versiones
 │
-└── nextjs-claude-setup/        # El Golden Path (único template)
+└── saas-factory/               # El Golden Path (proyecto funcional)
     ├── CLAUDE.md               # System prompt para proyectos
     ├── .mcp.json               # Configuración de MCPs
-    ├── .gitignore              # Git config
+    ├── package.json            # Dependencias pre-instaladas
+    ├── next.config.ts          # Next.js 16 con MCP activado
+    ├── src/                    # Código fuente
+    │   ├── app/                # Next.js App Router
+    │   ├── features/           # Arquitectura Feature-First
+    │   └── shared/             # Libs y componentes
     │
     └── .claude/
         ├── commands/           # Comandos slash
@@ -35,7 +40,6 @@ saas-factory-setup/
         │   └── metodologia-saas-factory.md
         ├── agents/             # Agentes especializados
         ├── PRPs/               # Templates para features
-        ├── Formularios/        # (Legacy - migrar a comandos)
         └── skills/             # Skills reutilizables
 ```
 
@@ -44,25 +48,29 @@ saas-factory-setup/
 ### El Alias `saas-factory`
 
 ```bash
-alias saas-factory="cp [RUTA]/nextjs-claude-setup/CLAUDE.md . && cp -r [RUTA]/nextjs-claude-setup/.claude . && cp [RUTA]/nextjs-claude-setup/.mcp.json ."
+alias saas-factory="cp -r [RUTA]/saas-factory/. ."
 ```
 
-Copia al proyecto actual:
+Copia **TODO el proyecto funcional** al directorio actual:
 - `CLAUDE.md` → System prompt
-- `.claude/` → Comandos, agentes, skills
-- `.mcp.json` → Configuración de MCPs
+- `.claude/` → Comandos, agentes, skills, PRPs
+- `.mcp.json` → Configuración de MCPs (Next.js, Playwright, Supabase)
+- `src/` → Código fuente con arquitectura Feature-First
+- `package.json` → Dependencias (Next.js 16, React 19, Tailwind 3.4)
+- `next.config.ts` → Con `experimental.mcpServer: true`
+- Configs → TypeScript, ESLint, Tailwind
 
 ### El Golden Path (Stack Único)
 
 | Capa | Tecnología |
 |------|------------|
-| Frontend | Next.js 15 + TypeScript |
-| Estilos | Tailwind CSS + shadcn/ui |
+| Frontend | Next.js 16 + React 19 + TypeScript |
+| Estilos | Tailwind CSS 3.4 + shadcn/ui |
 | Auth | Supabase (Email/Password) |
 | Database | Supabase (PostgreSQL) |
 | Validación | Zod |
 | State | Zustand |
-| Testing | Playwright |
+| Testing | Playwright MCP |
 | Deploy | Vercel |
 
 **¿Por qué Email/Password y no OAuth?**
@@ -101,7 +109,7 @@ pwd          # Ruta del repo
 ### 2. Generar Alias
 ```bash
 # Reemplazar [REPO_PATH] con pwd
-alias saas-factory="cp [REPO_PATH]/nextjs-claude-setup/CLAUDE.md . && cp -r [REPO_PATH]/nextjs-claude-setup/.claude . && cp [REPO_PATH]/nextjs-claude-setup/.mcp.json ."
+alias saas-factory="cp -r [REPO_PATH]/saas-factory/. ."
 ```
 
 ### 3. Añadir a Shell Config
@@ -180,4 +188,4 @@ Ver `.claude/prompts/metodologia-saas-factory.md` para el proceso completo:
 ---
 
 *Este archivo es para que Claude Code entienda el repositorio SaaS Factory.*
-*Para la metodología de desarrollo, ver `nextjs-claude-setup/CLAUDE.md`.*
+*Para la metodología de desarrollo, ver `saas-factory/CLAUDE.md`.*

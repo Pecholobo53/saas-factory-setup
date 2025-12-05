@@ -2,11 +2,11 @@
 
 > *"La línea de ensamblaje de Ford aplicada al software."*
 
-Sistema de comandos inteligentes para construir aplicaciones **production-ready** con IA.
+Sistema de comandos inteligentes que crea aplicaciones **production-ready** con IA.
 
 ## 🎯 ¿Qué es SaaS Factory?
 
-**Un solo comando. Todo listo.**
+**Un comando. Todo listo.**
 
 ```bash
 cd ~/mi-nuevo-proyecto
@@ -14,168 +14,6 @@ saas-factory
 ```
 
 La IA ya sabe cómo trabajar. Tú solo describes lo que quieres construir.
-
----
-
-## 🚀 Quick Start (2 minutos)
-
-### Paso 1: Clona el repositorio
-
-```bash
-git clone https://github.com/daniel-carreon/saas-factory-setup.git
-cd saas-factory-setup
-```
-
-### Paso 2: Abre en Claude Code
-
-```bash
-claude .
-```
-
-### Paso 3: Pídele que configure el alias
-
-```
-Configura el alias "saas-factory" en mi terminal
-```
-
-Claude Code detectará tu sistema y configurará todo automáticamente.
-
----
-
-## 🛠️ Comandos Disponibles
-
-Una vez configurado, estos comandos están disponibles en cualquier proyecto:
-
-### `/new-app` - El Arquitecto
-Entrevista de negocio para definir tu SaaS B2B.
-
-```
-/new-app
-```
-
-El agente actúa como **Consultor de Negocio Senior**:
-- Extrae el dolor del cliente
-- Define el flujo principal (Happy Path)
-- Identifica usuarios y datos
-- Genera `BUSINESS_LOGIC.md` con especificación técnica
-
-### `/landing` - The Money Maker
-Genera landing pages de alta conversión.
-
-```
-/landing
-```
-
-El agente actúa como **Copywriter y Diseñador de Clase Mundial**:
-- Entrevista sobre objetivo y vibe
-- Escribe copy persuasivo (AIDA/PAS)
-- Diseña y ejecuta el código directamente
-- Valida con Playwright
-
----
-
-## 📦 ¿Qué Incluye?
-
-Cuando ejecutas `saas-factory` en un proyecto, obtienes:
-
-```
-tu-proyecto/
-├── CLAUDE.md              # System prompt - La IA lee esto automáticamente
-├── .mcp.json              # Configuración de herramientas IA
-│
-└── .claude/
-    ├── commands/          # Comandos slash (/new-app, /landing, etc.)
-    ├── prompts/           # Metodología SaaS Factory
-    ├── agents/            # Agentes especializados
-    ├── PRPs/              # Templates para features complejas
-    └── skills/            # Skills reutilizables
-```
-
----
-
-## 🏗️ El Golden Path
-
-**Un solo stack. Sin decisiones innecesarias.**
-
-| Capa | Tecnología |
-|------|------------|
-| Frontend | Next.js 15 + TypeScript |
-| Estilos | Tailwind CSS + shadcn/ui |
-| Auth | Supabase (Email/Password) |
-| Database | Supabase (PostgreSQL) |
-| Validación | Zod |
-| State | Zustand |
-| Testing | Playwright |
-| Deploy | Vercel |
-
-**¿Por qué este stack?**
-- Probado en producción
-- Excelente DX (Developer Experience)
-- La IA lo entiende perfectamente
-- Deploy en 1 click
-
----
-
-## 🔧 Configuración Manual del Alias
-
-Si prefieres configurar manualmente:
-
-### Para zsh (~/.zshrc):
-
-```bash
-# SaaS Factory - De idea a producción en minutos
-alias saas-factory="cp [RUTA]/CLAUDE.md . && cp -r [RUTA]/.claude . && cp [RUTA]/.mcp.json ."
-```
-
-### Para bash (~/.bashrc):
-
-```bash
-# SaaS Factory - De idea a producción en minutos
-alias saas-factory="cp [RUTA]/CLAUDE.md . && cp -r [RUTA]/.claude . && cp [RUTA]/.mcp.json ."
-```
-
-**Nota:** Reemplaza `[RUTA]` con la ruta absoluta donde clonaste este repositorio.
-
-Después ejecuta:
-```bash
-source ~/.zshrc  # o ~/.bashrc
-```
-
----
-
-## 📋 Workflow Típico
-
-### 1. Crear nuevo proyecto
-
-```bash
-mkdir mi-saas && cd mi-saas
-saas-factory
-claude .
-```
-
-### 2. Definir el negocio
-
-```
-/new-app
-```
-
-Responde las preguntas del Consultor de Negocio. Genera `BUSINESS_LOGIC.md`.
-
-### 3. Construir
-
-```
-Implementa las features según BUSINESS_LOGIC.md
-```
-
-La IA sigue la metodología SaaS Factory automáticamente.
-
-### 4. Crear landing (opcional)
-
-```
-/landing
-```
-
-Para cada cliente o producto que necesite landing page.
 
 ---
 
@@ -191,27 +29,176 @@ Para cada cliente o producto que necesite landing page.
 
 **Los comandos que construyen el SaaS** son más importantes que el SaaS mismo.
 
+### Guillermo Rauch (Next.js Conf 2025)
+> "For a human under 100ms is all the same. But for an agent loop, every millisecond counts."
+
+**Turbopack (10ms) vs Webpack (200ms):**
+- 100 iteraciones de diseño → **30 segundos** vs **20 minutos**
+- La diferencia entre una herramienta útil y una **mágica**
+
+---
+
+## 🚀 Instalación (2 minutos)
+
+### 1. Clona el repositorio
+```bash
+git clone https://github.com/daniel-carreon/saas-factory-setup.git
+cd saas-factory-setup
+```
+
+### 2. Abre en Claude Code
+```bash
+claude .
+```
+
+### 3. Pídele que configure el alias
+```
+Configura el alias "saas-factory" en mi terminal
+```
+
+Claude Code detecta tu sistema (zsh/bash) y configura todo automáticamente.
+
+---
+
+## 📦 ¿Qué Obtienes?
+
+Cuando ejecutas `saas-factory`, obtienes un **proyecto Next.js 16 completo** listo para producción:
+
+```
+tu-proyecto/
+├── CLAUDE.md              # System prompt - La IA lee esto automáticamente
+├── .mcp.json              # El Cyborg (Next.js, Playwright, Supabase)
+├── src/                   # App con Feature-First Architecture
+├── .claude/commands/      # /new-app, /landing, etc.
+└── package.json           # Next.js 16, React 19, Tailwind 3.4
+```
+
+**No es un template vacío. Es production-ready desde el minuto 0.**
+
+---
+
+## 🏗️ El Golden Path
+
+**Un solo stack. Sin decisiones innecesarias.**
+
+| Capa | Tecnología |
+|------|------------|
+| Frontend | Next.js 16 + React 19 + TypeScript |
+| Estilos | Tailwind CSS 3.4 + shadcn/ui |
+| Backend | Supabase (Auth + Database) |
+| Testing | Playwright MCP |
+| Deploy | Vercel |
+
+---
+
+## 🔥 El Cyborg - 3 MCPs Trabajando Juntos
+
+```typescript
+// next.config.ts - Esta línea lo cambia todo
+experimental: { mcpServer: true }
+```
+
+| MCP | Rol | Superpoder |
+|-----|-----|------------|
+| 🧠 **Next.js DevTools** | Cerebro | Lee errores/logs en tiempo real vía `/_next/mcp` |
+| 👁️ **Playwright** | Ojos | Captura screenshots, valida UX visualmente |
+| 🗄️ **Supabase** | Backend | Ejecuta SQL, migraciones, consulta logs |
+
+**Sin MCPs:** La IA adivina qué está roto.
+**Con MCPs:** La IA **ve** exactamente qué está roto y por qué.
+
+---
+
+## 🛠️ Comandos Disponibles
+
+### `/new-app` - El Arquitecto
+Actúa como **Consultor de Negocio Senior**. Te entrevista y genera `BUSINESS_LOGIC.md` con la especificación técnica completa.
+
+### `/landing` - The Money Maker
+Actúa como **Copywriter + Diseñador**. Crea landing pages de alta conversión validadas visualmente con Playwright.
+
+---
+
+## 📋 Workflow: De 0 a Producción
+
+### 1. Crear proyecto
+```bash
+mkdir mi-saas && cd mi-saas
+saas-factory
+```
+
+### 2. Instalar y configurar
+```bash
+npm install
+cp .env.example .env.local  # Añade credenciales de Supabase
+```
+
+### 3. Prender el MCP 🔥
+```bash
+npm run dev
+# Output: - MCP Server: http://localhost:3000/_next/mcp ✓
+```
+
+### 4. Conectar Claude Code
+```bash
+claude .  # En otra terminal
+```
+
+### 5. Definir el negocio
+```
+/new-app
+```
+
+Responde las preguntas. El agente genera `BUSINESS_LOGIC.md`.
+
+### 6. Construir
+```
+Implementa las features según BUSINESS_LOGIC.md
+```
+
+La IA usa el MCP para ver errores en tiempo real mientras construye.
+
+### 7. Crear landing (opcional)
+```
+/landing
+```
+
+El agente itera el diseño hasta pixel-perfect.
+
+---
+
+## 🧪 ¿Cómo Saber que el MCP Funciona?
+
+**Prueba:** Rompe algo a propósito
+```typescript
+// src/app/page.tsx
+const broken = undefined.foo  // 💥
+```
+
+**Con MCP activo**, Claude ve:
+```
+TypeError: Cannot read property 'foo' of undefined
+  at Home (page.tsx:2:23)
+```
+
+**Sin MCP**, Claude adivina.
+
 ---
 
 ## ❓ FAQ
 
 **¿Por qué solo Next.js?**
-Porque hace el 100% del trabajo. No necesitas Python ni backends separados para el 90% de los SaaS B2B.
+Hace el 100% del trabajo para el 95% de los SaaS B2B. No necesitas Python ni backends separados.
 
-**¿Y si necesito backend complejo?**
-Next.js API Routes + Supabase Edge Functions cubren casi todo. Si realmente necesitas más, siempre puedes añadir después.
+**¿Por qué Email/Password en lugar de OAuth?**
+Evita bloqueos de bots durante testing. OAuth requiere verificación que complica el desarrollo.
 
-**¿Por qué Email/Password en lugar de Google OAuth?**
-Para evitar bloqueos de bots durante testing. Google OAuth requiere verificación que complica el desarrollo.
-
-**¿Puedo modificar los templates?**
-Sí. Todo está diseñado para ser personalizado. El `CLAUDE.md` es tu punto de entrada.
+**¿Puedo personalizar?**
+Sí. Todo está diseñado para ser extendido. `CLAUDE.md` es tu punto de entrada.
 
 ---
 
 ## 🤝 Contribuir
-
-¿Ideas para mejorar SaaS Factory?
 
 1. Abre un issue con tu propuesta
 2. Fork y PR son bienvenidos
@@ -219,11 +206,13 @@ Sí. Todo está diseñado para ser personalizado. El `CLAUDE.md` es tu punto de 
 
 ---
 
-## 📖 Documentación Adicional
+## 📖 Documentación
 
-- `.claude/prompts/metodologia-saas-factory.md` - La metodología completa
-- `.claude/commands/new-app.md` - Cómo funciona el arquitecto
-- `.claude/commands/landing.md` - Cómo funciona el generador de landings
+Para detalles técnicos, ver:
+- `CLAUDE.md` (root) - System prompt del factory
+- `saas-factory/CLAUDE.md` - System prompt de cada app
+- `.claude/prompts/` - Metodología completa
+- `.claude/commands/` - Cómo funcionan los comandos
 
 ---
 
