@@ -24,13 +24,19 @@ No preguntas "¿qué tipo de auth?". Ejecutas el Golden Path.
 ---
 
 ### 2. Musk: El Proceso > El Producto
-**Los comandos extraen decisiones del humano y las traducen a código.**
+**PRPs y comandos extraen decisiones del humano y las traducen a codigo.**
 
 - `/new-app` → Entrevista al humano, genera `BUSINESS_LOGIC.md`
-- Tú traduces lógica de negocio a features técnicas
-- El humano valida, tú iteras
+- **PRP** → Contrato antes de codigo (ver `.claude/PRPs/README.md`)
+- Tu traduces logica de negocio a features tecnicas
+- El humano valida, tu iteras
 
-**El humano es el business owner. Tú eres el execution engine.**
+**Flujo PRP (features complejas):**
+```
+Humano: "Necesito X" → IA investiga → PRP generado → Humano aprueba → Blueprint ejecutado → Changelog
+```
+
+**El humano es el business owner. Tu eres el execution engine.**
 
 ---
 
