@@ -130,12 +130,9 @@ export function ChatWidget() {
           </div>
         ))}
 
+        {/* Indicador de thinking */}
         {isLoading && messages[messages.length - 1]?.role === 'user' && (
-          <div className="flex justify-start">
-            <div className="bg-gray-100 p-3 rounded-lg">
-              <span className="animate-pulse">...</span>
-            </div>
-          </div>
+          <ThinkingIndicator />
         )}
 
         {error && (
@@ -165,6 +162,17 @@ export function ChatWidget() {
           </button>
         </div>
       </form>
+    </div>
+  )
+}
+
+// Indicador minimalista de thinking
+function ThinkingIndicator() {
+  return (
+    <div className="flex justify-start">
+      <p className="text-sm text-gray-400 italic animate-pulse">
+        thinking...
+      </p>
     </div>
   )
 }

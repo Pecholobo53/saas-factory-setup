@@ -2,6 +2,178 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0] - 2025-12-17
+
+### AI Templates Reorganization + Lifecycle Commands
+
+**Theme: "No todo necesita ser un agente"**
+
+Se reorganiza el sistema de AI templates separando agentes (secuenciales) de capacidades standalone (independientes).
+
+### Added
+
+#### Lifecycle Commands
+- **`/update-sf`**: Actualiza `.claude/` desde el repo SF (encuentra alias, git pull, copia)
+- **`/eject-sf`**: Remueve todos los rastros de SF para distribución de producto (destructivo)
+- **`.claude/README.md`**: Documentación canónica del template
+
+#### AI Templates Standalone (Nuevos)
+- **`single-call.md`**: Llamada simple a LLM con `generateText()` - botones, acciones puntuales
+- **`structured-outputs.md`**: JSON tipado con Zod schemas (en optimización)
+- **`generative-ui.md`**: Componentes React dinámicos generados por AI (en optimización)
+
+#### AI Templates Agents (Nuevo bloque)
+- **`06-rag-basico.md`**: RAG con Supabase pgvector - embeddings, chunking, búsqueda semántica
+
+### Changed
+
+#### Estructura AI Templates
+```
+ai_templates/
+├── _index.md              # Índice actualizado
+├── agents/                # Secuenciales (7 bloques)
+│   ├── 00-setup-base.md
+│   ├── 01-chat-streaming.md
+│   ├── 01-alt-action-stream.md
+│   ├── 02-web-search.md
+│   ├── 03-historial-supabase.md
+│   ├── 04-vision-analysis.md
+│   ├── 05-tools-funciones.md
+│   └── 06-rag-basico.md   # NUEVO
+├── single-call.md         # NUEVO
+├── structured-outputs.md  # NUEVO
+└── generative-ui.md       # NUEVO
+```
+
+#### Mejoras UX en Templates
+- **04-vision-analysis.md**: Cmd+V para pegar imágenes, ImagePreviewBar encima del input
+- **01-chat-streaming.md**: ThinkingIndicator minimalista ("thinking...")
+- **01-alt-action-stream.md**: ThinkingToggle expandible, validación de acciones
+
+### Philosophy
+
+**La distinción clave:**
+- `agents/` = Flujo secuencial para conversaciones (useChat, streaming)
+- `standalone/` = Capacidades puntuales (generateText, generateObject)
+
+*"No todo necesita ser un agente. A veces un botón es suficiente."*
+
+---
+
+## [2.3.0] - 2025-12-14
+
+### Historial Template Upgrade to Action Stream
+
+**Theme: "Persistencia para agentes transparentes"**
+
+Upgrade completo del template de historial para soportar el patrón Action Stream.
+
+### Added
+
+#### Schema para Action Stream
+- **`agent_sessions`**: Tabla de sesiones con título auto-generado y modelo seleccionable
+- **`agent_actions`**: Tabla de acciones con contenido JSONB
+- **7 tipos de acción tipados**: think, message, ask, calculate, tool, search, error
+- **CHECK constraint** para validar tipos de acción
+
+#### Optimizaciones
+- **Batch save**: Guardado en lote para mejor performance
+- **Índices optimizados**: Para queries frecuentes
+- **Auto-title**: Generación automática de título desde primer mensaje
+
+#### UI
+- **Sidebar mobile-responsive**: Con confirmación de eliminación
+- **Model selection per session**: Elegir modelo por conversación
+
+### Technical
+
+Nuevo schema SQL:
+```sql
+-- agent_sessions: id, user_id, title, model, created_at, updated_at
+-- agent_actions: id, session_id, type, content (JSONB), created_at
+-- CHECK constraint: type IN ('think','message','ask','calculate','tool','search','error')
+```
+
+---
+
+## [2.2.0] - 2025-12-12
+
+### PRP System Simplification + AI Templates LEGO
+
+**Theme: "Simplificar para escalar"**
+
+Se simplifica el sistema PRP y se añade el sistema modular de AI templates.
+
+### Added
+
+#### AI Templates - Sistema LEGO (7 bloques)
+Nueva carpeta `ai_templates/` con componentes modulares:
+- **00-setup-base**: Config inicial SDK v5 + OpenRouter
+- **01-chat-streaming**: Hook useChat implementation
+- **01-alt-action-stream**: Patrón de agente transparente (inspirado en tldraw)
+- **02-web-search**: Sufijo `:online` para búsqueda web
+- **03-historial-supabase**: Persistencia de conversaciones
+- **04-vision-analysis**: Análisis de imágenes con Gemini/GPT-4o
+- **05-tools-funciones**: Definición de tools con Zod
+
+#### Design Systems (5)
+Nueva carpeta `design-systems/` con sistemas visuales:
+- **neobrutalism**: Bordes duros, colores primarios, sombras offset
+- **neumorphism**: Soft UI con sombras suaves
+- **liquid-glass**: Glassmorphism con efectos líquidos
+- **gradient-mesh**: Gradientes mesh complejos
+- **bento-grid**: Layout de grids asimétricos
+
+#### Metodologías Agentic
+- **bucle-agentico-blueprint.md**: Metodología de planificación
+- **bucle-agentico-sprint.md**: Metodología de ejecución
+- **agent-action-stream.md**: Documentación del paradigma Action Stream
+
+### Changed
+
+#### PRP System
+- **Removidos**: `ejecutar-prp.md`, `generar-prp.md` (comandos legacy)
+- **Añadido**: `PRPs/README.md` con workflow documentado
+- **Simplificado**: `prp_base.md` template más limpio
+- **CLAUDE.md**: Actualizado para referenciar nuevo sistema PRP
+
+#### Prompts Consolidados
+- **Removidos** (consolidados o obsoletos):
+  - `INVESTIGACION-CLAUDE-CODE-V2.md`
+  - `agent-builder-pydantic.md`
+  - `bucle-agentico.md` (reemplazado por blueprint/sprint)
+  - `nextjs-16-guide.md`
+  - `supabase-mcp-baas.md`
+
+### Technical
+
+Todos los AI templates siguen el estándar **Vercel AI SDK v5** para composabilidad:
+- `UIMessage` como tipo común
+- `streamText()` + `toUIMessageStreamResponse()`
+- `useChat` de `@ai-sdk/react`
+- OpenRouter como provider unificado
+
+---
+
+## [2.1.1] - 2025-12-06
+
+### Hotfixes and Configuration Updates
+
+### Fixed
+- **CLAUDE.md**: Corregido nombre "Sebastian Gauch" → "Guillermo Rauch (CEO de Vercel)"
+- **MCP config**: Corregido nombre del paquete `next-devtools-mcp` (removido prefijo `@vercel/`)
+- **Environment**: Renombrado `.env.example` → `.env.local.example` para claridad
+
+### Changed
+- **Tailwind CSS**: Downgrade a versión estable
+- **PostCSS/Autoprefixer**: Actualizadas dependencias
+- **Codebase cleanup**: Eliminado `proxy.ts` no usado
+
+### Added
+- **`add-login` command**: Documentación para setup de autenticación B2B
+
+---
+
 ## [2.1.0] - 2025-12-05
 
 ### 🤖 Agent-First Architecture Complete

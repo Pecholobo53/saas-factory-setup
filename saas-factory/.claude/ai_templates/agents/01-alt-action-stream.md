@@ -383,7 +383,38 @@ export function useActionStream(endpoint = '/api/agent') {
 
 'use client'
 
+import { useState } from 'react'
 import type { StreamingAction } from '../hooks/useActionStream'
+
+// ============================================
+// VALIDACION DE ACCIONES (evita burbujas vacias)
+// ============================================
+
+// MODIFICAR: Añade aquí los tipos que uses
+const VALID_ACTION_TYPES = new Set(['think', 'message', 'ask', 'calculate', 'tool'])
+
+// Helper: valida que una acción tenga contenido
+function isValidAction(action: StreamingAction): boolean {
+  // 1. Rechazar tipos no reconocidos
+  if (!VALID_ACTION_TYPES.has(action._type)) return false
+
+  // 2. Validar contenido según tipo
+  switch (action._type) {
+    case 'think':
+    case 'message':
+      return !!(action as { text?: string }).text?.trim()
+    case 'ask':
+      return !!(action as { question?: string }).question?.trim()
+    case 'calculate':
+      return !!(action as { description?: string }).description?.trim()
+    case 'tool':
+      return !!(action as { name?: string }).name?.trim()
+    default:
+      return false
+  }
+}
+
+// ============================================
 
 interface Props {
   actions: StreamingAction[]
@@ -392,9 +423,11 @@ interface Props {
 export function ActionFeed({ actions }: Props) {
   return (
     <div className="space-y-3">
-      {actions.map((action, i) => (
-        <ActionItem key={i} action={action} />
-      ))}
+      {actions
+        .filter(isValidAction) // <-- Filtra acciones invalidas/vacias
+        .map((action, i) => (
+          <ActionItem key={i} action={action} />
+        ))}
     </div>
   )
 }
@@ -406,12 +439,7 @@ function ActionItem({ action }: { action: StreamingAction }) {
 
   switch (action._type) {
     case 'think':
-      return (
-        <div className={`${baseClass} bg-gray-50`}>
-          <span className="text-xl">💭</span>
-          <p className="text-gray-600 italic">{action.text}</p>
-        </div>
-      )
+      return <ThinkingToggle text={action.text} complete={action.complete} />
 
     case 'message':
       return (
@@ -462,13 +490,36 @@ function ActionItem({ action }: { action: StreamingAction }) {
       )
 
     default:
-      return (
-        <div className={baseClass}>
-          <span className="text-xl">📝</span>
-          <pre className="text-xs">{JSON.stringify(action, null, 2)}</pre>
-        </div>
-      )
+      // Tipo no reconocido - no renderizar (el filtro ya deberia haberlo atrapado)
+      console.warn('ActionItem: tipo no reconocido', action._type)
+      return null
   }
+}
+
+// Toggle minimalista para thinking
+// Por defecto colapsado, click para expandir
+function ThinkingToggle({ text, complete }: { text: string; complete: boolean }) {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <button
+      onClick={() => setExpanded(!expanded)}
+      className={`w-full text-left transition-opacity ${!complete ? 'opacity-60' : ''}`}
+    >
+      {expanded ? (
+        // Expandido: muestra el razonamiento completo
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50">
+          <span className="text-xl">💭</span>
+          <p className="text-gray-600 italic text-sm">{text}</p>
+        </div>
+      ) : (
+        // Colapsado: solo "thinking..." en italicas
+        <p className="text-sm text-gray-400 italic">
+          thinking...
+        </p>
+      )}
+    </button>
+  )
 }
 ```
 
@@ -519,11 +570,11 @@ export function AgentChat() {
 
         <ActionFeed actions={actions} />
 
+        {/* Indicador minimalista mientras inicia */}
         {isStreaming && actions.length === 0 && (
-          <div className="flex items-center gap-2 text-gray-400">
-            <div className="animate-spin h-4 w-4 border-2 border-gray-300 border-t-gray-600 rounded-full" />
-            <p>Procesando...</p>
-          </div>
+          <p className="text-sm text-gray-400 italic animate-pulse">
+            thinking...
+          </p>
         )}
 
         {error && (
