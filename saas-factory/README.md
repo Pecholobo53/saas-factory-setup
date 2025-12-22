@@ -13,6 +13,8 @@ Un template **production-ready** para aplicaciones frontend modernas con:
 - ✅ Arquitectura Feature-First optimizada para IA
 - ✅ Auto port detection (3000-3006)
 - ✅ Testing, linting y type checking configurados
+- ✅ **Google Analytics** integration ready
+- ✅ **Facebook Pixel** integration ready
 
 ## 📦 Tech Stack
 
@@ -355,6 +357,45 @@ vercel
 En tu dashboard de Vercel, añade:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_GA_ID` (Google Analytics)
+- `NEXT_PUBLIC_FACEBOOK_PIXEL_ID` (Facebook Pixel)
+
+**IMPORTANTE**: Para variables `NEXT_PUBLIC_*`, también crea un archivo `.env.production` en tu repo con los valores, ya que se inyectan en build time.
+
+## 📊 Analytics Integration
+
+### Google Analytics
+
+1. Obtén tu Measurement ID en [analytics.google.com](https://analytics.google.com)
+2. Añade a `.env.production`:
+```bash
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+### Facebook Pixel
+
+1. Obtén tu Pixel ID en [business.facebook.com/events_manager](https://business.facebook.com/events_manager)
+2. Añade a `.env.production`:
+```bash
+NEXT_PUBLIC_FACEBOOK_PIXEL_ID=123456789012345
+```
+
+### Eventos disponibles
+
+Los componentes incluyen helpers para trackear eventos:
+
+```typescript
+import { gaEvents } from '@/components/analytics/GoogleAnalytics'
+import { fbEvents } from '@/components/analytics/FacebookPixel'
+
+// Trackear cuando usuario abre chat
+gaEvents.chatStarted()
+fbEvents.chatStarted()
+
+// Trackear lead
+gaEvents.chatLead('industry')
+fbEvents.lead({ content_name: 'Form', content_category: 'Lead' })
+```
 
 ---
 
