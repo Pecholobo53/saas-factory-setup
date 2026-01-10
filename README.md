@@ -1,40 +1,44 @@
-# 🏭 SaaS Factory V2 - De Idea a Producción en Minutos
+# 🏭 SaaS Factory V3 - La Fábrica de Software Inteligente
 
-> *"La línea de ensamblaje de Ford aplicada al software."*
+> *"La Tesla Factory aplicada al software."*
 
 Sistema de comandos inteligentes que crea aplicaciones **production-ready** con IA.
 
-## 🎯 ¿Qué es SaaS Factory?
+---
 
-**Un comando. Todo listo.**
+## 🤖 La Analogía: Tesla Factory
 
-```bash
-cd ~/mi-nuevo-proyecto
-saas-factory
-```
+Piensa en este repositorio como una **fábrica automatizada de software**:
 
-La IA ya sabe cómo trabajar. Tú solo describes lo que quieres construir.
+| Componente Tesla | Tu Sistema | Qué Hace |
+|------------------|------------|----------|
+| **Factory OS** | `CLAUDE.md` | Cerebro del agente (identidad y reglas) |
+| **Blueprints** | `.claude/PRPs/*.md` | Especificaciones de features |
+| **Control Room** | Humano | Aprueba PRPs y valida diseño |
+| **Robot Arms** | Supabase MCP + Terminal | Edita código y base de datos |
+| **Eyes/Cameras** | Playwright MCP | Valida UI visualmente |
+| **Quality Control** | Next.js MCP + typecheck | Detecta errores en tiempo real |
+| **Assembly Line** | `bucle-agentico-blueprint.md` | Proceso por fases |
+| **Neural Network** | Self-Annealing | Aprende de errores (nunca se repiten) |
+
+**Cuando ejecutas `saas-factory`**, copias toda la **infraestructura de la fábrica** al directorio actual.
 
 ---
 
-## 🎨 Filosofía
+## 🧠 V3: El Sistema que Mejora Solo
 
-### Henry Ford
-> "Pueden tener el coche del color que quieran, siempre que sea negro."
+> *"En metalurgia, el annealing fortalece el metal. En software, los errores fortalecen el sistema."*
 
-**Un solo stack perfeccionado** en lugar de mil opciones que paralizan.
+```
+Error ocurre → Se arregla → Se DOCUMENTA → NUNCA ocurre de nuevo
+```
 
-### Elon Musk
-> "La máquina que construye la máquina es más importante que la máquina."
+Cada error encontrado se documenta en el archivo relevante:
+- **PRP actual** → Errores específicos de esta feature
+- **`.claude/prompts/*.md`** → Errores que aplican a múltiples features
+- **`CLAUDE.md`** → Errores críticos que aplican a TODO
 
-**Los comandos que construyen el SaaS** son más importantes que el SaaS mismo.
-
-### Guillermo Rauch (Next.js Conf 2025)
-> "For a human under 100ms is all the same. But for an agent loop, every millisecond counts."
-
-**Turbopack (10ms) vs Webpack (200ms):**
-- 100 iteraciones de diseño → **30 segundos** vs **20 minutos**
-- La diferencia entre una herramienta útil y una **mágica**
+**El mismo error NUNCA ocurre dos veces.**
 
 ---
 
@@ -66,10 +70,14 @@ Cuando ejecutas `saas-factory`, obtienes un **proyecto Next.js 16 completo** lis
 
 ```
 tu-proyecto/
-├── CLAUDE.md              # System prompt - La IA lee esto automáticamente
-├── .mcp.json              # El Cyborg (Next.js, Playwright, Supabase)
+├── CLAUDE.md              # Factory OS - Cerebro del agente
+├── GEMINI.md              # Espejo para Gemini
+├── .mcp.json              # MCPs configurados (Next.js, Playwright, Supabase)
 ├── src/                   # App con Feature-First Architecture
-├── .claude/commands/      # /new-app, /landing, etc.
+├── .claude/
+│   ├── commands/          # /new-app, /landing, etc.
+│   ├── PRPs/              # Blueprints de features
+│   └── prompts/           # Assembly Line (bucle agéntico)
 └── package.json           # Next.js 16, React 19, Tailwind 3.4
 ```
 
@@ -98,11 +106,11 @@ tu-proyecto/
 experimental: { mcpServer: true }
 ```
 
-| MCP | Rol | Superpoder |
-|-----|-----|------------|
-| 🧠 **Next.js DevTools** | Cerebro | Lee errores/logs en tiempo real vía `/_next/mcp` |
-| 👁️ **Playwright** | Ojos | Captura screenshots, valida UX visualmente |
-| 🗄️ **Supabase** | Backend | Ejecuta SQL, migraciones, consulta logs |
+| MCP | Rol (Analogía) | Superpoder |
+|-----|----------------|------------|
+| 🧠 **Next.js DevTools** | Quality Control | Lee errores/logs en tiempo real vía `/_next/mcp` |
+| 👁️ **Playwright** | Eyes/Cameras | Captura screenshots, valida UX visualmente |
+| 🖐️ **Supabase** | Robot Arms | Ejecuta SQL, migraciones, consulta logs |
 
 **Sin MCPs:** La IA adivina qué está roto.
 **Con MCPs:** La IA **ve** exactamente qué está roto y por qué.
@@ -133,7 +141,7 @@ npm install
 cp .env.example .env.local  # Añade credenciales de Supabase
 ```
 
-### 3. Prender el MCP 🔥
+### 3. Prender el MCP
 ```bash
 npm run dev
 # Output: - MCP Server: http://localhost:3000/_next/mcp ✓
@@ -157,13 +165,6 @@ Implementa las features según BUSINESS_LOGIC.md
 ```
 
 La IA usa el MCP para ver errores en tiempo real mientras construye.
-
-### 7. Crear landing (opcional)
-```
-/landing
-```
-
-El agente itera el diseño hasta pixel-perfect.
 
 ---
 
@@ -209,19 +210,23 @@ Sí. Todo está diseñado para ser extendido. `CLAUDE.md` es tu punto de entrada
 ## 📖 Documentación
 
 Para detalles técnicos, ver:
-- `CLAUDE.md` (root) - System prompt del factory
-- `saas-factory/CLAUDE.md` - System prompt de cada app
-- `.claude/prompts/` - Metodología completa
+- `saas-factory/CLAUDE.md` - Factory OS (cerebro del agente)
+- `.claude/PRPs/prp-base.md` - Sistema de Blueprints
+- `.claude/prompts/bucle-agentico-blueprint.md` - Assembly Line
 - `.claude/commands/` - Cómo funcionan los comandos
 
 ---
 
-**SaaS Factory V2** | *"De la idea a producción en minutos, no en meses."*
+**SaaS Factory V3** | *"De la idea a producción en minutos, no en meses."*
 
 ```
-        ┌─────────────────────────────────────┐
-        │                                     │
-        │   saas-factory  →  /new-app  →  🚀  │
-        │                                     │
-        └─────────────────────────────────────┘
+        ┌─────────────────────────────────────────────────────────┐
+        │                                                         │
+        │   🏭 SAAS FACTORY V3                                    │
+        │                                                         │
+        │   saas-factory  →  /new-app  →  build  →  🚀           │
+        │                                                         │
+        │   El sistema que mejora solo (Self-Annealing)           │
+        │                                                         │
+        └─────────────────────────────────────────────────────────┘
 ```

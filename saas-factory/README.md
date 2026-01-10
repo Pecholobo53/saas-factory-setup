@@ -292,7 +292,7 @@ src/features/auth/
 
 - **CLAUDE.md** - System prompt completo (la fuente de verdad)
 - **.claude/prompts/** - Metodologías y patrones
-- **.claude/PRPs/templates/** - Templates para features
+- **.claude/PRPs/prp-base.md** - Sistema de Blueprints
 - **.claude/skills/** - Skills reutilizables
 
 ## 🚨 Troubleshooting

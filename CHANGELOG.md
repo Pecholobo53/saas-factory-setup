@@ -2,6 +2,81 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2025-01-09
+
+### SaaS Factory V3: The Self-Improving Factory
+
+**Theme: "La Tesla Factory aplicada al software"**
+
+V3 introduce la analogía de la Tesla Factory y el sistema Self-Annealing que hace que la fábrica mejore con cada error.
+
+### Added
+
+#### Tesla Factory Analogy
+Nueva metáfora que unifica todo el sistema:
+
+| Componente Tesla | Tu Sistema | Archivo/Herramienta |
+|------------------|------------|---------------------|
+| **Factory OS** | Cerebro del agente | `CLAUDE.md` / `GEMINI.md` |
+| **Blueprints** | Especificaciones de features | `.claude/PRPs/*.md` |
+| **Control Room** | Humano que aprueba | Tú preguntas, él valida |
+| **Robot Arms** | Manos (editar código, DB) | Supabase MCP + Terminal |
+| **Eyes/Cameras** | Visión del producto | Playwright MCP |
+| **Quality Control** | Validación automática | Next.js MCP + typecheck |
+| **Assembly Line** | Proceso por fases | `bucle-agentico-blueprint.md` |
+| **Neural Network** | Aprendizaje continuo | Self-Annealing |
+
+#### Self-Annealing System
+Sistema que hace que la fábrica mejore con cada error:
+```
+Error ocurre → Se arregla → Se DOCUMENTA → NUNCA ocurre de nuevo
+```
+
+Archivos participantes:
+- **PRP actual**: Errores específicos de esta feature
+- **`.claude/prompts/*.md`**: Errores que aplican a múltiples features
+- **`CLAUDE.md`**: Errores críticos que aplican a TODO el proyecto
+
+#### Sección "Aprendizajes" en CLAUDE.md
+Nueva sección activa que crece con cada error encontrado.
+
+### Changed
+
+#### CLAUDE.md & GEMINI.md (Complete Rewrite)
+- Reducido de 435 a ~280 líneas (más enfocado)
+- Añadida analogía Tesla Factory prominente
+- Añadida sección Self-Annealing con archivos participantes
+- Principios KISS/YAGNI/DRY/SOLID ahora como "Reglas de Código"
+- Eliminado ejemplo de Python (era confuso en proyecto TypeScript)
+- Sección "Aprendizajes" activa al final
+
+#### prp-base.md
+- Renombrado de "destino del tren" a "blueprint de la fábrica"
+- Añadida referencia a Tesla Factory
+- Sección "Aprendizajes" ahora menciona "Neural Network"
+
+#### README.md Principal
+- Actualizado a V3 con analogía Tesla Factory
+- Sección "El Sistema que Mejora Solo" prominente
+- Diagrama de cierre actualizado
+
+### Removed
+- **`.claude/PRPs/README.md`**: Consolidado en `prp-base.md`
+- **`.claude/PRPs/templates/`**: Directorio eliminado, template en `prp-base.md`
+- Referencias a Python (uvicorn, dev_server.py)
+
+### Philosophy
+
+**V3 representa un cambio fundamental:**
+- V2: Sistema de comandos inteligentes
+- V3: **Fábrica que se mejora sola**
+
+La clave es el Self-Annealing: cada error documentado fortalece la fábrica para que el mismo error NUNCA ocurra de nuevo.
+
+*"En metalurgia, el annealing fortalece el metal. En software, los errores fortalecen el sistema."*
+
+---
+
 ## [2.4.0] - 2025-12-17
 
 ### AI Templates Reorganization + Lifecycle Commands
