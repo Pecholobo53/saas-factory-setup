@@ -1,0 +1,37 @@
+name: Sync from upstream safely
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # cada 6 horas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream
+        run: |
+          git remote add upstream https://github.com/saas-factory-community/saas-factory-setup.git || true
+          git fetch upstream
+
+      - name: Merge upstream/main (keep our changes)
+        run: |
+          git checkout main
+          git merge upstream/main --no-edit || true
+
+      - name: Push result
+        run: |
+          git push origin main
