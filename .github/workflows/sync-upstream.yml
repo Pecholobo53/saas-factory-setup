@@ -1,0 +1,25 @@
+name: Sync from upstream
+:
+  schedule:
+    - cron: "0 */6 * * *"  # cada 6 horas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync from upstream (hard reset)
+        run: |
+          git remote add upstream https://github.com/saas-factory-community/saas-factory-setup.git || true
+          git fetch upstream
+          git checkout main
+          git reset --hard upstream/main
+          git push origin main --force
