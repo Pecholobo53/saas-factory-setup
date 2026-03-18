@@ -1,0 +1,63 @@
+name: Sync with upstream
+
+on:
+  schedule:
+    # Ejecuta cada 6 horas
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    # Permite ejecutar manualmente desde GitHub
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/daniel-carreon/saas-factory-setup.git || true
+          git fetch upstream
+
+      - name: Check for updates
+        id: check
+        run: |
+          git fetch upstream main
+          BEHIND=$(git rev-list --count HEAD..upstream/main)
+          echo "behind=$BEHIND" >> $GITHUB_OUTPUT
+
+          if [ "$BEHIND" -gt 0 ]; then
+            echo "::notice::Fork is $BEHIND commits behind upstream"
+          else
+            echo "::notice::Fork is up to date"
+          fi
+
+      - name: Sync with upstream
+        if: steps.check.outputs.behind > 0
+        run: |
+          git checkout main
+          git merge upstream/main --no-edit
+          git push origin main
+
+          echo "✅ Successfully synced ${{ steps.check.outputs.behind }} commits from upstream"
+
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## Sync Results 🔄" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Upstream:** daniel-carreon/saas-factory-setup" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commits behind:** ${{ steps.check.outputs.behind }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
