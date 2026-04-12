@@ -4,6 +4,14 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'SaaS Factory App',
   description: 'Built with SaaS Factory',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 }
 
 export default function RootLayout({
